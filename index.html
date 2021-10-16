@@ -20,11 +20,15 @@
             Counter:
             <button class="button minus" v-on:click="decrementCounterHandler">-1</button>
             <button class="button plus" v-on:click="incrementCounterHandler">+1</button>
+            <button class="button divide" v-on:click="divideCounterHandler">/2</button>
+            <button class="button multiply" v-on:click="multiplyCounterHandler">*2</button>
         </div>
         <div class="math">
             Step:
-            <button class="button minus">-2</button>
-            <button class="button plus">+2</button>
+            <button class="button minus" v-on:click="decrementStepHandler">-2</button>
+            <button class="button plus" v-on:click="incrementStepHandler">+2</button>
+            <button class="button divide" v-on:click="divideStepHandler">/2</button>
+            <button class="button multiply" v-on:click="multiplyStepHandler">*2</button>
         </div>
     </section>
     <hr>
@@ -33,15 +37,19 @@
         <h2>How much will!</h2>
         <p><span class="counter"></span> + <span class="step"></span></p>
         <p><strong>Result: <span class="sum"></span></strong></p>
-        <div class="math">
+        <div class="math counter-buttons">
             Counter:
             <button class="button minus">-1</button>
             <button class="button plus">+1</button>
+            <button class="button divide">/2</button>
+            <button class="button multiply">*2</button>
         </div>
-        <div class="math">
+        <div class="math step-buttons">
             Step:
             <button class="button minus">-2</button>
             <button class="button plus">+2</button>
+            <button class="button divide">/2</button>
+            <button class="button multiply">*2</button>
         </div>
     </section>
     <script>
@@ -52,31 +60,96 @@
                 step: 2
             },
             methods: {
-                incrementCounterHandler() {},
-                decrementCounterHandler() {}
-                //...
+                incrementCounterHandler() {
+                    this.counter += 1
+                },
+                decrementCounterHandler() {
+                    this.counter -= 1
+                },
+                divideCounterHandler() {
+                    this.counter /= 2
+                },
+                multiplyCounterHandler() {
+                    this.counter *= 2
+                },
+                incrementStepHandler() {
+                    this.step += 2
+                },
+                decrementStepHandler() {
+                    this.step -= 2
+                },
+                divideStepHandler() {
+                    this.step /= 2
+                },
+                multiplyStepHandler() {
+                    this.step *= 2
+                }
             },
             computed: {
-                sum() {}
+                sum() {
+                   return this.counter + this.step 
+                }
             }
         })
     </script>
     <script>
         const counterEl = document.querySelector('.js-app .counter');
-        const buttonElMinus = document.querySelector('.js-app .minus');
-        const buttonElPlus = document.querySelector('.js-app .plus');
         const sumEl = document.querySelector('.js-app .sum');
         const stepEl = document.querySelector('.js-app .step');
+        
+        const counterButtonElMinus = document.querySelector('.counter-buttons .minus');
+        const counterButtonElPlus = document.querySelector('.counter-buttons .plus');
+        const counterButtonElDivide = document.querySelector('.counter-buttons .divide');
+        const counterButtonElMultiply = document.querySelector('.counter-buttons .multiply');
+        
+        const stepButtonElMinus = document.querySelector('.step-buttons .minus');
+        const stepButtonElPlus = document.querySelector('.step-buttons .plus');
+        const stepButtonElDivide = document.querySelector('.step-buttons .divide');
+        const stepButtonElMultiply = document.querySelector('.step-buttons .multiply');
 
         const data = {
             counter: 1,
             step: 2
         };
 
-        const incrementCounterHandler = function () {};
-        const decrementCounterHandler = function () {};
-        //...
-        const getSum = function () {};
+        const incrementCounterHandler = function () {
+            data.counter += 1;
+            counterEl.textContent = data.counter;
+        };
+        const decrementCounterHandler = function () {
+            data.counter -= 1;
+            counterEl.textContent = data.counter;
+        };
+        const multiplyCounterHandler = function () {
+            data.counter *= 2;
+            counterEl.textContent = data.counter;
+        };
+        const divideCounterHandler = function () {
+            data.counter /= 2;
+            counterEl.textContent = data.counter;
+        };
+
+        const incrementStepHandler = function () {
+            data.step += 2;
+            stepEl.textContent = data.step;
+        };
+        const decrementStepHandler = function () {
+            data.step -= 2;
+            stepEl.textContent = data.step;
+        };
+        const multiplyStepHandler = function () {
+            data.step *= 2;
+            stepEl.textContent = data.step;
+        };
+        const divideStepHandler = function () {
+            data.step /= 2;
+            stepEl.textContent = data.step;
+        };
+
+        const getSum = function () {
+            const newCounter = data.counter + data.step;
+            sumEl.textContent = newCounter;
+        };
 
         const queue = [getSum];
 
@@ -99,8 +172,15 @@
         counterEl.textContent = data.counter;
         stepEl.textContent = data.step;
         getSum();
-        buttonElMinus.addEventListener('click', decrementCounterHandler);
-        buttonElPlus.addEventListener('click', incrementCounterHandler);
+        counterButtonElMinus.addEventListener('click', decrementCounterHandler);
+        counterButtonElPlus.addEventListener('click', incrementCounterHandler);
+        counterButtonElDivide.addEventListener('click', divideCounterHandler);
+        counterButtonElMultiply.addEventListener('click', multiplyCounterHandler);
+
+        stepButtonElMinus.addEventListener('click', decrementStepHandler);
+        stepButtonElPlus.addEventListener('click', incrementStepHandler);
+        stepButtonElDivide.addEventListener('click', divideStepHandler);
+        stepButtonElMultiply.addEventListener('click', multiplyStepHandler);
     </script>
 </body>
 
